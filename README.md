@@ -1,6 +1,6 @@
 # IP Locator - Desktop GUI
 
-A user-friendly desktop application for IP geolocation lookups built with Go and Fyne. Get detailed information about any IP address with a clean, native GUI interface.
+A user-friendly desktop application for IP geolocation lookups built with Go and Fyne. Get detailed information about any IP address with a clean, native GUI.
 
 **Using the geolocation API provided by [IPLocate.io](https://iplocate.io)**
 
@@ -19,11 +19,10 @@ This project uses a branch-based approach to separate different interfaces:
 - 🏢 **ISP Information**: Retrieve ASN and provider details
 - 🕒 **Timezone Data**: Get timezone information for the IP location
 - 🔒 **Privacy Detection**: Detect VPN and proxy usage
--  **Batch Processing**: Load and process multiple IPs from files
-- � **Export Results**: Save results to JSON or CSV files
-- ⚡ **Fast Processing**: Concurrent IP lookups with progress indicators
+- 📂 **File Processing**: Load and process multiple IPs from text files
+- 💾 **Export Results**: Save results to JSON or readable text formats
+- 🚀 **Concurrent Processing**: Fast parallel IP lookups
 - 🔍 **Self Lookup**: Check your own public IP information
-- 🎨 **Modern UI**: Clean, intuitive interface built with Fyne
 
 ## Installation
 
@@ -87,23 +86,11 @@ go run .
 ### App Features
 
 - **Single IP Lookup**: Enter an IP address and click "Lookup"
-- **Batch Processing**: Use "Load File" to process multiple IPs from a text file
-- **Self Lookup**: Click "My IP" to check your own public IP
-- **Export Results**: Save results as JSON or CSV files
-- **Copy to Clipboard**: Click any result field to copy to clipboard
-
-## Learning Fyne
-
-### Quick Start Resources:
-- [Official Fyne Documentation](https://docs.fyne.io/)
-- [Fyne Tutorial](https://docs.fyne.io/started/)
-- [Widget Tour](https://docs.fyne.io/widget/)
-
-### Useful Fyne Concepts:
-- **Widgets**: UI components (buttons, entries, labels)
-- **Containers**: Layout managers (border, grid, vbox, hbox)
-- **Canvas**: Drawing surface and coordinate system
-- **Themes**: Customizable appearance
+- **Self Lookup**: Click "Self Lookup" to check your own public IP information
+- **File Upload**: Use "Upload File" to process multiple IPs from a text file (one IP address per line)
+- **Card-based Results**: Each IP result displays in its own organized card
+- **Export Options**: Save results as JSON or readable text files
+- **Scrollable Interface**: Browse through multiple results easily
 
 ## Dependencies
 

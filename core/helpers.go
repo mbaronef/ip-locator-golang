@@ -1,42 +1,41 @@
 package core
 
 import (
-    "encoding/json"
-    "fmt"
-    
-    "github.com/fatih/color"
-    "github.com/iplocate/go-iplocate"
+	"encoding/json"
+	"fmt"
+
+	"github.com/iplocate/go-iplocate"
 )
 
 func FormatResult(result *iplocate.LookupResponse) string {
-    var out string
-    
-    green := color.New(color.FgGreen).SprintFunc()
-    red := color.New(color.FgRed).SprintFunc()
+	var out string
 
-    out += fmt.Sprintf("%s: %s\n", green("IP"), result.IP)
-    if result.Country != nil {
-        out += fmt.Sprintf("%s: %s (%s)\n", green("Country"), *result.Country, *result.CountryCode)
-    }
-    if result.City != nil {
-        out += fmt.Sprintf("%s: %s\n", green("City"), *result.City)
-    }
-    if result.Latitude != nil && result.Longitude != nil {
-        out += fmt.Sprintf("%s: %.4f, %.4f\n", green("Coordinates"), *result.Latitude, *result.Longitude)
-    }
-    if result.TimeZone != nil {
-        out += fmt.Sprintf("%s: %s\n", green("Time Zone"), *result.TimeZone)
-    }
-    if result.ASN != nil {
-        out += fmt.Sprintf("%s: %s (ASN %s)\n", green("ISP"), result.ASN.Name, result.ASN.ASN)
-    }
-    if result.Privacy.IsVPN {
-        out += fmt.Sprintf("%s\n", red("Uses VPN"))
-    }
-    if result.Privacy.IsProxy {
-        out += fmt.Sprintf("%s\n", red("Uses Proxy"))
-    }
-    return out
+	out += fmt.Sprintf("IP: %s\n", result.IP)
+	if result.Country != nil {
+		out += fmt.Sprintf("Country: %s (%s)\n", *result.Country, *result.CountryCode)
+	}
+	if result.City != nil {
+		out += fmt.Sprintf("City: %s\n", *result.City)
+	}
+	if result.Latitude != nil && result.Longitude != nil {
+		out += fmt.Sprintf("Coordinates: %.4f, %.4f\n", *result.Latitude, *result.Longitude)
+	}
+	if result.TimeZone != nil {
+		out += fmt.Sprintf("Time Zone: %s\n", *result.TimeZone)
+	}
+	if result.ASN != nil {
+		out += fmt.Sprintf("ISP: %s (ASN %s)\n", result.ASN.Name, result.ASN.ASN)
+	}
+	if result.Privacy.IsVPN {
+		out += "Uses VPN: Yes\n"
+	}
+	if result.Privacy.IsProxy {
+		out += "Uses Proxy: Yes\n"
+	}
+	if !result.Privacy.IsVPN && !result.Privacy.IsProxy {
+		out += "Privacy: No VPN or Proxy detected\n"
+	}
+	return out
 }
 
 func FormatJSON(results []*iplocate.LookupResponse) (string, error) {
