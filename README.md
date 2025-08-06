@@ -1,28 +1,29 @@
-# IP Locator
+# IP Locator - Desktop GUI
 
-A fast and efficient command-line tool written in Go for IP geolocation lookups. Get detailed information about any IP address including location, ISP, timezone, and privacy detection (VPN/Proxy).
+A user-friendly desktop application for IP geolocation lookups built with Go and Fyne. Get detailed information about any IP address with a clean, native GUI interface.
 
 **Using the geolocation API provided by [IPLocate.io](https://iplocate.io)**
-
 
 ## Project Structure
 
 This project uses a branch-based approach to separate different interfaces:
 
 - 📋 **main** branch: **Pure CLI tool** - Fast, lightweight command-line interface
-- 🌐 **ui/web** branch: **Web interface** - User-friendly browser-based UI
+- 🌐 **ui/web** branch: **Web interface** - User-friendly browser-based UI  
 - 🖥️ **ui/desktop** branch: **Desktop application** - Native GUI application
 
 ## Features
 
+- 🖥️ **Native GUI**: Cross-platform desktop application with native look and feel
 - 🌍 **Accurate Geolocation**: Get country, city, and coordinates for any IP address
 - 🏢 **ISP Information**: Retrieve ASN and provider details
 - 🕒 **Timezone Data**: Get timezone information for the IP location
 - 🔒 **Privacy Detection**: Detect VPN and proxy usage
-- 📊 **Multiple Output Formats**: Support for both human-readable and JSON output
-- 📁 **Batch Processing**: Process multiple IPs from a file
-- 🚀 **Concurrent Processing**: Fast parallel IP lookups
+-  **Batch Processing**: Load and process multiple IPs from files
+- � **Export Results**: Save results to JSON or CSV files
+- ⚡ **Fast Processing**: Concurrent IP lookups with progress indicators
 - 🔍 **Self Lookup**: Check your own public IP information
+- 🎨 **Modern UI**: Clean, intuitive interface built with Fyne
 
 ## Installation
 
@@ -31,13 +32,25 @@ This project uses a branch-based approach to separate different interfaces:
 - Go 1.19 or higher
 - IPLocate API key (get one at [iplocate.io](https://iplocate.io))
 
+### Platform-specific Requirements
+
+**Windows:**
+- No additional requirements
+
+**macOS:**
+- Xcode command line tools: `xcode-select --install`
+
+**Linux:**
+- Development packages: `sudo apt install gcc libc6-dev libgl1-mesa-dev xorg-dev` (Ubuntu/Debian)
+
 ### Build from Source
 
 ```bash
 git clone https://github.com/mbaronef/ip-locator-golang.git
 cd ip-locator-golang
+git checkout ui/desktop
 go mod tidy
-go build -o iplocator main.go
+go build -o iplocator-gui .
 ```
 
 ### Set API Key
@@ -61,87 +74,41 @@ export IPLOCATE_API_KEY="your_api_key_here"
 
 ## Usage
 
-### Basic IP Lookup
+### Running the Application
 
 ```bash
-# Lookup a single IP
-./iplocator 8.8.8.8
+# Run the desktop GUI
+./iplocator-gui
 
-# Lookup your own IP
-./iplocator --self
+# Or directly with Go
+go run .
 ```
 
-### Multiple IPs
+### App Features
 
-```bash
-# Lookup multiple IPs
-./iplocator 8.8.8.8 1.1.1.1 208.67.222.222
-```
+- **Single IP Lookup**: Enter an IP address and click "Lookup"
+- **Batch Processing**: Use "Load File" to process multiple IPs from a text file
+- **Self Lookup**: Click "My IP" to check your own public IP
+- **Export Results**: Save results as JSON or CSV files
+- **Copy to Clipboard**: Click any result field to copy to clipboard
 
-### File Input
+## Learning Fyne
 
-```bash
-# Process IPs from a file (one IP per line)
-./iplocator --file example.txt
-```
+### Quick Start Resources:
+- [Official Fyne Documentation](https://docs.fyne.io/)
+- [Fyne Tutorial](https://docs.fyne.io/started/)
+- [Widget Tour](https://docs.fyne.io/widget/)
 
-### JSON Output
-
-```bash
-# Get output in JSON format
-./iplocator --json 8.8.8.8
-./iplocator --json --file example.txt
-```
-
-## Command Line Options
-
-| Flag | Description |
-|------|-------------|
-| `--json` | Output results in JSON format |
-| `--self` | Lookup your own public IP address |
-| `--file <path>` | Read IP addresses from a file (one per line) |
-| `--help` | Show help information |
-
-## Example Output
-
-### Standard Output
-```
-IP: 8.8.8.8
-Country: United States (US)
-City: Mountain View
-Coordinates: 37.4056, -122.0775
-Time Zone: America/Los_Angeles
-ISP: Google LLC (ASN AS15169)
----------------
-```
-
-### JSON Output
-```json
-[
-  {
-    "ip": "8.8.8.8",
-    "country": "United States",
-    "country_code": "US",
-    "city": "Mountain View",
-    "latitude": 37.4056,
-    "longitude": -122.0775,
-    "time_zone": "America/Los_Angeles",
-    "asn": {
-      "asn": "AS15169",
-      "name": "Google LLC"
-    },
-    "privacy": {
-      "vpn": false,
-      "proxy": false
-    }
-  }
-]
-```
+### Useful Fyne Concepts:
+- **Widgets**: UI components (buttons, entries, labels)
+- **Containers**: Layout managers (border, grid, vbox, hbox)
+- **Canvas**: Drawing surface and coordinate system
+- **Themes**: Customizable appearance
 
 ## Dependencies
 
+- [fyne.io/fyne/v2](https://fyne.io/) - Cross-platform GUI toolkit
 - [iplocate/go-iplocate](https://github.com/iplocate/go-iplocate) - IPLocate API client
-- [fatih/color](https://github.com/fatih/color) - Colored terminal output
 
 
 
