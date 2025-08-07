@@ -40,7 +40,6 @@ git clone https://github.com/mbaronef/ip-locator-golang.git
 cd ip-locator-golang
 git checkout ui/web
 go mod tidy
-go run main.go
 ```
 
 ### Set API Key
