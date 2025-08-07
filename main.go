@@ -14,6 +14,7 @@ import (
 )
 
 var apiClient *iplocate.Client
+var lastResults []*iplocate.LookupResponse
 
 func main() {
 	client, err := core.NewClient()
@@ -35,6 +36,8 @@ func main() {
 	r.GET("/", homePage)
 	r.POST("/lookup", lookupHandler)
 	r.POST("/self-lookup", selfLookupHandler)
+	r.GET("/download/json", downloadJSONHandler)
+	r.GET("/download/txt", downloadTxtHandler)
 
 	// Start server
 	port := os.Getenv("PORT")
@@ -77,7 +80,8 @@ func lookupHandler(c *gin.Context) {
 		return
 	}
 
-	showResults(c, validResults, errorMessages, privateIPs)
+	lastResults = validResults
+	showResults(c, lastResults, errorMessages, privateIPs)
 }
 
 func validateAndParseInput(c *gin.Context) ([]string, error) {
@@ -160,6 +164,41 @@ func selfLookupHandler(c *gin.Context) {
 		})
 		return
 	}
+	lastResults = []*iplocate.LookupResponse{result}
 
-	showResults(c, []*iplocate.LookupResponse{result}, []string{}, []string{})
+	showResults(c, lastResults, []string{}, []string{})
+}
+
+func downloadJSONHandler(c *gin.Context) {
+	if len(lastResults) == 0 {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No results available for download"})
+		return
+	}
+
+	jsonData, err := core.FormatJSON(lastResults)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to format JSON"})
+		return
+	}
+
+	c.Header("Content-Description", "File Transfer")
+	c.Header("Content-Disposition", "attachment; filename=ip-location-results.json")
+	c.Data(http.StatusOK, "application/json", []byte(jsonData))
+}
+
+func downloadTxtHandler(c *gin.Context) {
+	if len(lastResults) == 0 {
+		c.String(http.StatusBadRequest, "No results available for download")
+		return
+	}
+
+	var formattedResults []string
+	for _, result := range lastResults {
+		formattedResults = append(formattedResults, core.FormatResult(result))
+	}
+	textData := strings.Join(formattedResults, "\n"+strings.Repeat("=", 50)+"\n")
+
+	c.Header("Content-Description", "File Transfer")
+	c.Header("Content-Disposition", "attachment; filename=ip-location-results.txt")
+	c.Data(http.StatusOK, "text/plain", []byte(textData))
 }

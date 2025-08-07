@@ -1,5 +1,14 @@
 <h2>🌍 IP Location Result{{if ne .count 1}}s{{end}}</h2>
 
+<div style="text-align: center; margin: 20px 0;">
+    <a href="/download/json" style="background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; text-decoration: none; margin: 0 10px; font-size: 14px; display: inline-block;">
+        📄 Download .json
+    </a>
+    <a href="/download/txt" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 4px; text-decoration: none; margin: 0 10px; font-size: 14px; display: inline-block;">
+        📝 Download .txt
+    </a>
+</div>
+
 {{if .private_ips}}
 <div style="background: #fff3cd; border: 1px solid #ffc107; border-radius: 8px; padding: 15px; margin: 10px 0;">
     <p><strong>⚠️ Private IP address{{if gt (len .private_ips) 1}}es{{end}} skipped:</strong> {{range $i, $ip := .private_ips}}{{if $i}}, {{end}}{{$ip}}{{end}}</p>

@@ -1,6 +1,7 @@
 package core
 
 import (
+	"encoding/json"
 	"fmt"
 	"net"
 
@@ -81,4 +82,12 @@ func SeparatePublicAndPrivateIPs(ips []string) (publicIPs []string, privateIPs [
 		}
 	}
 	return publicIPs, privateIPs
+}
+
+func FormatJSON(results []*iplocate.LookupResponse) (string, error) {
+	jsonData, err := json.MarshalIndent(results, "", "  ")
+	if err != nil {
+		return "", fmt.Errorf("error formatting results as JSON: %v", err)
+	}
+	return string(jsonData), nil
 }

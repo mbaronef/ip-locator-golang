@@ -20,6 +20,7 @@ This project uses a branch-based approach to separate different interfaces:
 - 🏢 **ISP Information**: Retrieve ASN and provider details
 - 🕒 **Timezone Data**: Get timezone information for the IP location
 - 🔒 **Privacy Detection**: Detect VPN and proxy usage
+- 💾 **Export Results**: Save results to JSON or TXT formats
 - ⚡ **Multiple IP Support**: Process multiple IP addresses at once (space-separated)
 - 🚀 **Concurrent Processing**: Fast parallel IP lookups
 - 🔍 **Self Lookup**: Check your own public IP information
@@ -83,6 +84,7 @@ go run main.go
 - **Single IP Lookup**: Enter an IP address in the main form and click "Lookup"
 - **Multiple IPs**: Enter multiple IP addresses separated by spaces
 - **Self Lookup**: Click "Self Lookup" to check your own public IP information
+- **Download Results**: Export lookup results as JSON or TXT files with one click
 - **Real-time Results**: Results appear instantly without page reloads
 - **Private IP Detection**: Automatically warns when private/local IPs are entered
 - **Error Handling**: Clear error messages for invalid inputs and failed lookups
