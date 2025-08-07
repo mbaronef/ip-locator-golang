@@ -1,7 +1,6 @@
 package core
 
 import (
-	"encoding/json"
 	"fmt"
 	"net"
 
@@ -37,14 +36,6 @@ func FormatResult(result *iplocate.LookupResponse) string {
 		out += "🔓 Privacy: No VPN or Proxy detected\n"
 	}
 	return out
-}
-
-func FormatJSON(results []*iplocate.LookupResponse) (string, error) {
-	jsonData, err := json.MarshalIndent(results, "", "  ")
-	if err != nil {
-		return "", fmt.Errorf("error formatting results as JSON: %v", err)
-	}
-	return string(jsonData), nil
 }
 
 func IsPrivateIP(ipStr string) bool {
