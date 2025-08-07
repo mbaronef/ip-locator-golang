@@ -23,6 +23,7 @@ This project uses a branch-based approach to separate different interfaces:
 - 📁 **Batch Processing**: Process multiple IPs from a file
 - 🚀 **Concurrent Processing**: Fast parallel IP lookups
 - 🔍 **Self Lookup**: Check your own public IP information
+- ⚠️ **Smart Filtering**: Automatically detects and warns about private IP addresses
 
 ## Installation
 
@@ -76,6 +77,9 @@ export IPLOCATE_API_KEY="your_api_key_here"
 ```bash
 # Lookup multiple IPs
 ./iplocator 8.8.8.8 1.1.1.1 208.67.222.222
+
+# Mixed public and private IPs (private IPs will be skipped with warning)
+./iplocator 8.8.8.8 192.168.1.1 1.1.1.1
 ```
 
 ### File Input
@@ -142,6 +146,3 @@ ISP: Google LLC (ASN AS15169)
 
 - [iplocate/go-iplocate](https://github.com/iplocate/go-iplocate) - IPLocate API client
 - [fatih/color](https://github.com/fatih/color) - Colored terminal output
-
-
-

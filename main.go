@@ -92,6 +92,11 @@ func performLookups(config Config, client *iplocate.Client) ([]*iplocate.LookupR
 		return nil, err
 	}
 
+	ips, err = checkPrivateIPs(ips)
+	if err != nil {
+		return nil, err
+	}
+
 	return lookupIPs(client, ips), nil
 }
 
@@ -154,6 +159,67 @@ func validateIPs(ips []string) error {
 		}
 	}
 	return nil
+}
+
+func checkPrivateIPs(ips []string) ([]string, error) {
+	publicIPs, privateIPs := separatePublicAndPrivateIPs(ips)
+
+	if len(publicIPs) == 0 {
+		return nil, fmt.Errorf("all provided IP addresses are private/local. Please enter public IP addresses for geolocation lookup")
+	}
+
+	if len(privateIPs) > 0 {
+		yellow := color.New(color.FgYellow).SprintFunc()
+		fmt.Printf("%s Private/local IP addresses skipped (no geolocation data available): %v\n", yellow("Warning:"), privateIPs)
+		fmt.Println()
+	}
+
+	return publicIPs, nil
+}
+
+func separatePublicAndPrivateIPs(ips []string) (publicIPs []string, privateIPs []string) {
+	for _, ip := range ips {
+		if isPrivateIP(ip) {
+			privateIPs = append(privateIPs, ip)
+		} else {
+			publicIPs = append(publicIPs, ip)
+		}
+	}
+	return publicIPs, privateIPs
+}
+
+func isPrivateIP(ipStr string) bool {
+	ip := net.ParseIP(ipStr)
+	if ip == nil {
+		return false
+	}
+
+	// IPv4 private ranges
+	if ip.To4() != nil {
+		// 10.0.0.0/8
+		if ip[12] == 10 {
+			return true
+		}
+		// 172.16.0.0/12
+		if ip[12] == 172 && ip[13] >= 16 && ip[13] <= 31 {
+			return true
+		}
+		// 192.168.0.0/16
+		if ip[12] == 192 && ip[13] == 168 {
+			return true
+		}
+		// 127.0.0.0/8 (localhost)
+		if ip[12] == 127 {
+			return true
+		}
+	}
+
+	// Check for IPv6 private ranges
+	if ip.IsLoopback() || ip.IsLinkLocalUnicast() {
+		return true
+	}
+
+	return false
 }
 
 func lookupIPs(client *iplocate.Client, ips []string) []*iplocate.LookupResponse {
