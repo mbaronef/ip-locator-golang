@@ -76,7 +76,7 @@ go run main.go
 ### Live Demo
 
 🌐 **Try it online**: [https://ip-locator-golang.onrender.com](https://ip-locator-golang.onrender.com)
-> *Note: Free deployment with cold starts (~30s). Demo uses a shared API key with rate limits. For unlimited usage, run locally with your own API key.*
+> *Note: Free deployment with cold starts (~30s). Demo uses a shared API key with rate limits. "Self Lookup" shows server location (Oregon, US), not your location. For unlimited usage, run locally with your own API key.*
 
 ### Web Interface Features
 
