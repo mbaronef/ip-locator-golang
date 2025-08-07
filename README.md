@@ -75,8 +75,8 @@ go run main.go
 
 ### Live Demo
 
-🌐 **Try it online**: [https://ip-locator-web.railway.app](https://ip-locator-web.railway.app)
-> *Note: Demo uses a shared API key with rate limits. For unlimited usage, run locally with your own API key.*
+🌐 **Try it online**: [https://ip-locator-golang.onrender.com](https://ip-locator-golang.onrender.com)
+> *Note: Free deployment with cold starts (~30s). Demo uses a shared API key with rate limits. For unlimited usage, run locally with your own API key.*
 
 ### Web Interface Features
 

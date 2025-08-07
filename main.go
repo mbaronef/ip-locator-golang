@@ -6,6 +6,7 @@ import (
 	"iplocator/core"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -36,8 +37,13 @@ func main() {
 	r.POST("/self-lookup", selfLookupHandler)
 
 	// Start server
-	log.Println("Server starting on http://localhost:8080")
-	r.Run(":8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	log.Printf("Server starting on port %s", port)
+	r.Run(":" + port)
 }
 
 func homePage(c *gin.Context) {
