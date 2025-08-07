@@ -110,7 +110,12 @@ func lookupButtonEvent(appState *AppState, ipEntry *widget.Entry) *widget.Button
 			return
 		}
 
-		res, errs := core.LookupIPs(appState.client, []string{ip})
+		publicIPs, shouldContinue := privateIPFiltering(appState, []string{ip})
+		if !shouldContinue {
+			return
+		}
+
+		res, errs := core.LookupIPs(appState.client, publicIPs)
 		if len(errs) > 0 && errs[0] != nil {
 			showError(appState, "Error: "+errs[0].Error())
 			return
@@ -158,7 +163,12 @@ func fileUploadButtonEvent(appState *AppState) *widget.Button {
 				return
 			}
 
-			res, errs := core.LookupIPs(appState.client, ips)
+			publicIPs, shouldContinue := privateIPFiltering(appState, ips)
+			if !shouldContinue {
+				return
+			}
+
+			res, errs := core.LookupIPs(appState.client, publicIPs)
 			if len(errs) > 0 && errs[0] != nil {
 				showError(appState, "Error: "+errs[0].Error())
 				return
@@ -243,4 +253,30 @@ func exitButtonEvent(fyneApp fyne.App) *widget.Button {
 	return widget.NewButton("Exit", func() {
 		fyneApp.Quit()
 	})
+}
+
+func privateIPFiltering(appState *AppState, ips []string) ([]string, bool) {
+	publicIPs, privateIPs := core.SeparatePublicAndPrivateIPs(ips)
+
+	if len(privateIPs) > 0 {
+		if len(publicIPs) == 0 {
+			if len(ips) == 1 {
+				showError(appState, "This IP address ("+ips[0]+") is private/local. Please enter a public IP address for geolocation lookup.")
+			} else {
+				showError(appState, "All IP addresses are private/local. Please provide public IP addresses for geolocation lookup.")
+			}
+			return nil, false
+		} else {
+			privateList := strings.Join(privateIPs, ", ")
+			var message string
+			if len(privateIPs) == 1 {
+				message = "Private IP address " + privateList + " was skipped as it cannot be geolocated."
+			} else {
+				message = "The following private IP addresses were skipped: " + privateList + "\n\nPrivate IPs cannot be geolocated."
+			}
+			dialog.ShowInformation("Private IP Warning", message, appState.window)
+		}
+	}
+
+	return publicIPs, true
 }

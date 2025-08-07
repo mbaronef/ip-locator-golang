@@ -23,6 +23,7 @@ This project uses a branch-based approach to separate different interfaces:
 - 💾 **Export Results**: Save results to JSON or readable text formats
 - 🚀 **Concurrent Processing**: Fast parallel IP lookups
 - 🔍 **Self Lookup**: Check your own public IP information
+- ⚠️ **Smart Filtering**: Automatically detects and warns about private IP addresses
 
 ## Installation
 
@@ -88,6 +89,7 @@ go run .
 - **Single IP Lookup**: Enter an IP address and click "Lookup"
 - **Self Lookup**: Click "Self Lookup" to check your own public IP information
 - **File Upload**: Use "Upload File" to process multiple IPs from a text file (one IP address per line)
+- **Smart IP Filtering**: Automatically detects private IPs with user-friendly dialog warnings
 - **Card-based Results**: Each IP result displays in its own organized card
 - **Export Options**: Save results as JSON or readable text files
 - **Scrollable Interface**: Browse through multiple results easily

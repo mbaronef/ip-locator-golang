@@ -3,6 +3,7 @@ package core
 import (
 	"encoding/json"
 	"fmt"
+	"net"
 
 	"github.com/iplocate/go-iplocate"
 )
@@ -44,4 +45,49 @@ func FormatJSON(results []*iplocate.LookupResponse) (string, error) {
 		return "", fmt.Errorf("error formatting results as JSON: %v", err)
 	}
 	return string(jsonData), nil
+}
+
+func IsPrivateIP(ipStr string) bool {
+	ip := net.ParseIP(ipStr)
+	if ip == nil {
+		return false
+	}
+
+	// IPv4 private ranges
+	if ip.To4() != nil {
+		// 10.0.0.0/8
+		if ip[12] == 10 {
+			return true
+		}
+		// 172.16.0.0/12
+		if ip[12] == 172 && ip[13] >= 16 && ip[13] <= 31 {
+			return true
+		}
+		// 192.168.0.0/16
+		if ip[12] == 192 && ip[13] == 168 {
+			return true
+		}
+		// 127.0.0.0/8 (localhost)
+		if ip[12] == 127 {
+			return true
+		}
+	}
+
+	// Check for IPv6 private ranges
+	if ip.IsLoopback() || ip.IsLinkLocalUnicast() {
+		return true
+	}
+
+	return false
+}
+
+func SeparatePublicAndPrivateIPs(ips []string) (publicIPs []string, privateIPs []string) {
+	for _, ip := range ips {
+		if IsPrivateIP(ip) {
+			privateIPs = append(privateIPs, ip)
+		} else {
+			publicIPs = append(publicIPs, ip)
+		}
+	}
+	return publicIPs, privateIPs
 }
