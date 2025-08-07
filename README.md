@@ -1,6 +1,6 @@
-# IP Locator
+# IP Locator - Web Interface
 
-A fast and efficient command-line tool written in Go for IP geolocation lookups. Get detailed information about any IP address including location, ISP, timezone, and privacy detection (VPN/Proxy).
+A user-friendly web interface for IP geolocation lookups built with Go, Gin, and HTMX. Get detailed information about any IP address through a responsive browser interface with real-time interactions.
 
 **Using the geolocation API provided by [IPLocate.io](https://iplocate.io)**
 
@@ -15,14 +15,15 @@ This project uses a branch-based approach to separate different interfaces:
 
 ## Features
 
+- 🌐 **Modern Web Interface**: Responsive design that works on desktop and mobile
 - 🌍 **Accurate Geolocation**: Get country, city, and coordinates for any IP address
 - 🏢 **ISP Information**: Retrieve ASN and provider details
 - 🕒 **Timezone Data**: Get timezone information for the IP location
 - 🔒 **Privacy Detection**: Detect VPN and proxy usage
-- 📊 **Multiple Output Formats**: Support for both human-readable and JSON output
-- 📁 **Batch Processing**: Process multiple IPs from a file
+- ⚡ **Multiple IP Support**: Process multiple IP addresses at once (space-separated)
 - 🚀 **Concurrent Processing**: Fast parallel IP lookups
 - 🔍 **Self Lookup**: Check your own public IP information
+- ⚠️ **Smart Filtering**: Automatically detects and warns about private IP addresses
 
 ## Installation
 
@@ -36,8 +37,9 @@ This project uses a branch-based approach to separate different interfaces:
 ```bash
 git clone https://github.com/mbaronef/ip-locator-golang.git
 cd ip-locator-golang
+git checkout ui/web
 go mod tidy
-go build -o iplocator main.go
+go run main.go
 ```
 
 ### Set API Key
@@ -61,87 +63,32 @@ export IPLOCATE_API_KEY="your_api_key_here"
 
 ## Usage
 
-### Basic IP Lookup
+### Starting the Web Server
 
 ```bash
-# Lookup a single IP
-./iplocator 8.8.8.8
+# Start the web application
+go run main.go
 
-# Lookup your own IP
-./iplocator --self
+# The application will be available at:
+# http://localhost:8080
 ```
 
-### Multiple IPs
+### Live Demo
 
-```bash
-# Lookup multiple IPs
-./iplocator 8.8.8.8 1.1.1.1 208.67.222.222
-```
+🌐 **Try it online**: [https://ip-locator-web.railway.app](https://ip-locator-web.railway.app)
+> *Note: Demo uses a shared API key with rate limits. For unlimited usage, run locally with your own API key.*
 
-### File Input
+### Web Interface Features
 
-```bash
-# Process IPs from a file (one IP per line)
-./iplocator --file example.txt
-```
-
-### JSON Output
-
-```bash
-# Get output in JSON format
-./iplocator --json 8.8.8.8
-./iplocator --json --file example.txt
-```
-
-## Command Line Options
-
-| Flag | Description |
-|------|-------------|
-| `--json` | Output results in JSON format |
-| `--self` | Lookup your own public IP address |
-| `--file <path>` | Read IP addresses from a file (one per line) |
-| `--help` | Show help information |
-
-## Example Output
-
-### Standard Output
-```
-IP: 8.8.8.8
-Country: United States (US)
-City: Mountain View
-Coordinates: 37.4056, -122.0775
-Time Zone: America/Los_Angeles
-ISP: Google LLC (ASN AS15169)
----------------
-```
-
-### JSON Output
-```json
-[
-  {
-    "ip": "8.8.8.8",
-    "country": "United States",
-    "country_code": "US",
-    "city": "Mountain View",
-    "latitude": 37.4056,
-    "longitude": -122.0775,
-    "time_zone": "America/Los_Angeles",
-    "asn": {
-      "asn": "AS15169",
-      "name": "Google LLC"
-    },
-    "privacy": {
-      "vpn": false,
-      "proxy": false
-    }
-  }
-]
-```
+- **Single IP Lookup**: Enter an IP address in the main form and click "Lookup"
+- **Multiple IPs**: Enter multiple IP addresses separated by spaces
+- **Self Lookup**: Click "Self Lookup" to check your own public IP information
+- **Real-time Results**: Results appear instantly without page reloads
+- **Private IP Detection**: Automatically warns when private/local IPs are entered
+- **Error Handling**: Clear error messages for invalid inputs and failed lookups
+- **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
 
 ## Dependencies
-
+- [gin-gonic/gin](https://github.com/gin-gonic/gin) - Fast HTTP web framework
 - [iplocate/go-iplocate](https://github.com/iplocate/go-iplocate) - IPLocate API client
-- [fatih/color](https://github.com/fatih/color) - Colored terminal output
-
-
-
+- [HTMX](https://htmx.org/) - Modern web interactions without complex JavaScript

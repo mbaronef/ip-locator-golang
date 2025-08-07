@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{.title}}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/htmx.org@2.0.3"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .form-container { background: #f5f5f5; padding: 30px; border-radius: 8px; margin-bottom: 20px; }
+        input[type="text"] { width: 70%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; }
+        input[type="file"] { width: 70%; padding: 12px; border: 1px solid #ddd; border-radius: 4px; }
+        button { padding: 12px 24px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #0056b3; }
+        .self-lookup-btn { background: #28a745; }
+        .self-lookup-btn:hover { background: #218838; }
+        .upload-btn { background: #6f42c1; }
+        .upload-btn:hover { background: #5a32a3; }
+        .button-group { margin-top: 15px; text-align: center; }
+        #results { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>🌍 IP Locator</h1>
+    <p>Enter one or more IP addresses to get location information</p>
+    
+    <div class="form-container">
+        <form hx-post="/lookup" hx-target="#results">
+            <input type="text" name="ip" placeholder="Enter IP address(es) separated by spaces (e.g., 8.8.8.8 1.1.1.1)" required>
+            <button type="submit">Lookup IP</button>
+        </form>
+        
+        <div style="margin: 20px 0; text-align: center;">
+            <p style="margin: 10px 0; color: #666;">Or upload a text file:</p>
+            <form hx-post="/upload" hx-target="#results" hx-encoding="multipart/form-data">
+                <input type="file" name="file" accept=".txt" required>
+                <button type="submit" class="upload-btn">📄 Upload File</button>
+            </form>
+        </div>
+        
+        <div class="button-group">
+            <p style="margin: 10px 0; color: #666;">Or check your own IP:</p>
+            <button hx-post="/self-lookup" hx-target="#results" class="self-lookup-btn">
+                🔍 Check My IP
+            </button>
+        </div>
+    </div>
+
+    <div id="results">
+    </div>
+</body>
+</html>
