@@ -15,16 +15,16 @@ This project uses a branch-based approach to separate different interfaces:
 
 ## Features
 
-- 🌐 **Modern Web Interface**: Responsive design that works on desktop and mobile
-- 🌍 **Accurate Geolocation**: Get country, city, and coordinates for any IP address
-- 🏢 **ISP Information**: Retrieve ASN and provider details
-- 🕒 **Timezone Data**: Get timezone information for the IP location
-- 🔒 **Privacy Detection**: Detect VPN and proxy usage
-- 💾 **Export Results**: Save results to JSON or TXT formats
-- ⚡ **Multiple IP Support**: Process multiple IP addresses at once (space-separated)
-- 🚀 **Concurrent Processing**: Fast parallel IP lookups
-- 🔍 **Self Lookup**: Check your own public IP information
-- ⚠️ **Smart Filtering**: Automatically detects and warns about private IP addresses
+-  **Modern Web Interface**: Responsive design that works on desktop and mobile
+-  **Accurate Geolocation**: Get country, city, and coordinates for any IP address
+-  **ISP Information**: Retrieve ASN and provider details
+-  **Timezone Data**: Get timezone information for the IP location
+-  **Privacy Detection**: Detect VPN and proxy usage
+-  **Export Results**: Save results to JSON or TXT formats
+-  **Multiple IP Support**: Process multiple IP addresses at once (space-separated)
+-  **Concurrent Processing**: Fast parallel IP lookups
+-  **Self Lookup**: Check your own public IP information
+-  **Smart Filtering**: Automatically detects and warns about private IP addresses
 
 ## Installation
 
