@@ -15,15 +15,15 @@ This project uses a branch-based approach to separate different interfaces:
 
 ## Features
 
-- 🌍 **Accurate Geolocation**: Get country, city, and coordinates for any IP address
-- 🏢 **ISP Information**: Retrieve ASN and provider details
-- 🕒 **Timezone Data**: Get timezone information for the IP location
-- 🔒 **Privacy Detection**: Detect VPN and proxy usage
-- 📊 **Multiple Output Formats**: Support for both human-readable and JSON output
-- 📁 **Batch Processing**: Process multiple IPs from a file
-- 🚀 **Concurrent Processing**: Fast parallel IP lookups
-- 🔍 **Self Lookup**: Check your own public IP information
-- ⚠️ **Smart Filtering**: Automatically detects and warns about private IP addresses
+- **Accurate Geolocation**: Get country, city, and coordinates for any IP address
+- **ISP Information**: Retrieve ASN and provider details
+- **Timezone Data**: Get timezone information for the IP location
+- **Privacy Detection**: Detect VPN and proxy usage
+- **Multiple Output Formats**: Support for both human-readable and JSON output
+- **Batch Processing**: Process multiple IPs from a file
+- **Concurrent Processing**: Fast parallel IP lookups
+- **Self Lookup**: Check your own public IP information
+- **Smart Filtering**: Automatically detects and warns about private IP addresses
 
 ## Installation
 
