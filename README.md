@@ -14,16 +14,16 @@ This project uses a branch-based approach to separate different interfaces:
 
 ## Features
 
-- 🖥️ **Native GUI**: Cross-platform desktop application with native look and feel
-- 🌍 **Accurate Geolocation**: Get country, city, and coordinates for any IP address
-- 🏢 **ISP Information**: Retrieve ASN and provider details
-- 🕒 **Timezone Data**: Get timezone information for the IP location
-- 🔒 **Privacy Detection**: Detect VPN and proxy usage
-- 📂 **File Processing**: Load and process multiple IPs from text files
-- 💾 **Export Results**: Save results to JSON or readable text formats
-- 🚀 **Concurrent Processing**: Fast parallel IP lookups
-- 🔍 **Self Lookup**: Check your own public IP information
-- ⚠️ **Smart Filtering**: Automatically detects and warns about private IP addresses
+-  **Native GUI**: Cross-platform desktop application with native look and feel
+-  **Accurate Geolocation**: Get country, city, and coordinates for any IP address
+-  **ISP Information**: Retrieve ASN and provider details
+-  **Timezone Data**: Get timezone information for the IP location
+-  **Privacy Detection**: Detect VPN and proxy usage
+-  **File Processing**: Load and process multiple IPs from text files
+-  **Export Results**: Save results to JSON or readable text formats
+-  **Concurrent Processing**: Fast parallel IP lookups
+-  **Self Lookup**: Check your own public IP information
+-  **Smart Filtering**: Automatically detects and warns about private IP addresses
 
 ## Installation
 
